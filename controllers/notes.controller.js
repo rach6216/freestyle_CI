@@ -32,7 +32,7 @@ notesCtrl.createNewNote = (req, res) => {
   }
 };
 notesCtrl.renderNotes = (req, res) => {
-  Note.find({user:req.user.id})
+  Note.find({user:req.user.id}).lean()
     .then(notes => {
       notes.forEach(function (item) {
         var date = moment(item.createdAt, "YYYYMMDD").fromNow();
@@ -95,7 +95,8 @@ notesCtrl.updateStatus = (req, res) => {
     });
 };
 function myFirstFunction(data, callback) {
-  Note.findById({ _id: data.id })
+debugger
+  Note.findById({ _id: data.id }).lean()
     .then(note => {
       callback(null, note)
     }).catch(err => {
@@ -119,7 +120,7 @@ function mySecondFunction(data, callback) {
     });
 }
 notesCtrl.renderNotesgrids = (req, res) => {
-  Note.find({user:req.user.id})
+  Note.find({user:req.user.id}).lean()
     .then(notes => {
       var temp=[]
       notes.forEach(function (item) {
@@ -142,7 +143,7 @@ notesCtrl.renderNotesgrids = (req, res) => {
     });
 };
 notesCtrl.renderNotesNetwork = (req, res) => {
-  Note.find({ user: req.user.id })
+  Note.find({ user: req.user.id }).lean()
     .then(notes => {
       var temp = []
       var c = 0;
@@ -189,7 +190,7 @@ notesCtrl.renderNotesNetwork = (req, res) => {
     });
 }; 
 notesCtrl.findeNote = (req, res) => {
-  Note.findById(req.params.id, obj)
+  Note.findById(req.params.id, obj).lean()
     .then(note => {
       res.send(note);
     }).catch(err => {
